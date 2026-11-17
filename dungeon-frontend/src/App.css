@@ -1,0 +1,723 @@
+body {
+  background-color: #121212;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* --- Login Screen --- */
+.login-screen {
+  margin-top: 100px;
+}
+.connect-btn {
+  padding: 15px 30px;
+  font-size: 20px;
+  background-color: #f6851b; /* สี MetaMask */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.connect-btn:hover { background-color: #e2761b; }
+
+/* --- Header & Nav --- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e1e1e;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #333;
+}
+.wallet-badge {
+  background-color: #333;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #4caf50;
+}
+
+/* --- Lobby Screen --- */
+.lobby-layout {
+  display: flex;
+  gap: 20px;
+  text-align: left;
+}
+.profile-section, .dungeon-section {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+.profile-section { flex: 1; }
+.dungeon-section { flex: 2; }
+
+.avatar-large {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 2px solid #555;
+  border-radius: 10px;
+  background-color: #222;
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+.inv-item {
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  font-size: 10px;
+}
+.inv-item img { width: 100%; border-radius: 3px; }
+.inv-item.Common { border-color: #b0bec5; }
+.inv-item.Rare { border-color: #2196f3; }
+.inv-item.Legendary { border-color: #ffc107; }
+
+.dungeon-card {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.dungeon-card:hover { border-color: #f6851b; }
+.enter-btn {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.enter-btn:hover { background-color: #b71c1c; }
+
+/* --- Battle Arena (ของเดิม) --- */
+.battle-arena {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #1e1e1e;
+  padding: 40px 20px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.character { display: flex; flex-direction: column; align-items: center; width: 200px; }
+.avatar { width: 150px; height: 150px; object-fit: cover; border: 3px solid #666; border-radius: 8px; margin-bottom: 15px; }
+.hp-bar-container { width: 100%; background-color: #444; border-radius: 5px; height: 25px; position: relative; margin-bottom: 15px; }
+.hp-bar { height: 100%; transition: width 0.3s ease; border-radius: 5px;}
+.hp-bar.player { background-color: #4caf50; }
+.hp-bar.monster { background-color: #f44336; }
+.hp-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; font-size: 14px; text-shadow: 1px 1px 2px black; }
+.action-btn { padding: 10px 20px; font-size: 16px; font-weight: bold; background-color: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+.action-btn:hover { background-color: #45a049; }
+.action-btn:disabled { background-color: #555; cursor: not-allowed; }
+.battle-log { background-color: #111; border: 1px solid #333; padding: 15px; height: 120px; overflow-y: auto; text-align: left; border-radius: 5px; margin-bottom: 20px; }
+
+/* --- Loot Modal --- */
+.loot-modal { background-color: #1e1e1e; border: 2px dashed #ffc107; padding: 30px; border-radius: 10px; animation: popIn 0.5s ease-out; }
+.loot-card { width: 200px; margin: 0 auto; padding: 15px; border-radius: 10px; background-color: #222; }
+.loot-card img { width: 100%; border-radius: 8px; margin-bottom: 10px; }
+@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+/* --- Inventory Layout (PoE2 Style) --- */
+.inventory-screen {
+  text-align: left;
+}
+.inv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.inventory-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+.equip-panel {
+  background-color: #1a1a1a;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 250px;
+}
+.equip-grid {
+  display: grid;
+  grid-template-columns: 70px 70px 70px;
+  grid-template-rows: 70px 70px 70px;
+  gap: 15px;
+  margin-top: 20px;
+}
+/* จัด Layout เป็นรูปไม้กางเขนตามภาพวาด */
+.slot-amulet { grid-column: 3; grid-row: 1; }
+.slot-sword { grid-column: 1; grid-row: 2; }
+.slot-armor { grid-column: 2; grid-row: 2; }
+.slot-shield { grid-column: 3; grid-row: 2; }
+.slot-boots { grid-column: 2; grid-row: 3; }
+
+.equip-slot {
+  background-color: #222;
+  border: 2px solid #555;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #666;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+.equip-slot img { max-width: 90%; max-height: 90%; border-radius: 4px; }
+
+.items-panel {
+  flex: 1;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  min-height: 400px;
+}
+.inventory-grid-large {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 15px;
+}
+.inv-item { cursor: pointer; transition: transform 0.2s; }
+.inv-item:hover { transform: scale(1.05); }
+
+/* --- Lobby Mini Equip --- */
+.mini-equip-preview {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+.mini-slot {
+  width: 45px;
+  height: 45px;
+  background-color: #222;
+  border: 1px solid #555;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #666;
+}
+.mini-slot img { max-width: 80%; max-height: 80%; }
+
+.rolling-banner {
+  background-color: #263238;
+  border: 1px dashed #4fc3f7;
+  color: #e1f5fe;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.floor-loot-banner {
+  background-color: #1b2e1e;
+  border: 1px solid #4caf50;
+  color: #c8e6c9;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.gameover-modal {
+  background-color: #1e1212;
+  border: 2px solid #d32f2f;
+  padding: 30px;
+  border-radius: 10px;
+  animation: popIn 0.4s ease-out;
+}
+
+.gameover-box {
+  background-color: #2a1818;
+  border: 1px solid #5c2626;
+  padding: 15px;
+  border-radius: 8px;
+  max-width: 420px;
+  margin: 15px auto;
+}
+
+.battle-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1b1b1b;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.run-loot-icon-btn {
+  background-color: #263238;
+  border: 1px solid #4fc3f7;
+  color: #e1f5fe;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.run-loot-icon-btn:hover {
+  background-color: #37474f;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 999;
+}
+
+.run-loot-modal {
+  background-color: #1a1a1a;
+  border: 1px solid #555;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.run-loot-summary-bar {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background-color: #242424;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.run-loot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  gap: 12px;
+}
+
+.run-loot-card {
+  background-color: #222;
+  border: 2px solid #444;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.run-loot-card.Common { border-color: #b0bec5; }
+.run-loot-card.Rare { border-color: #2196f3; }
+.run-loot-card.Legendary { border-color: #ffc107; }
+
+.run-loot-card img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.run-loot-name {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.run-loot-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11px;
+}
+
+.rarity-tag.Common { color: #b0bec5; }
+.rarity-tag.Rare { color: #64b5f6; }
+.rarity-tag.Legendary { color: #ffd54f; }
+.power-tag { color: #81c784; font-weight: bold; }
+
+/* --- Rarity Backgrounds --- */
+.rarity-bg-Common {
+  background: linear-gradient(160deg, #2e3238 0%, #1d2024 100%);
+  border-color: #6c757d !important;
+}
+
+.rarity-bg-Rare {
+  background: linear-gradient(160deg, #172d4a 0%, #0e1b2e 100%);
+  border-color: #2196f3 !important;
+}
+
+.rarity-bg-Legendary {
+  background: linear-gradient(160deg, #423107 0%, #241a03 100%);
+  border-color: #ffc107 !important;
+}
+
+/* --- Filter Bar (QoL) --- */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2c2c2c;
+}
+
+.filter-btn {
+  background-color: #232323;
+  color: #bbb;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filter-btn:hover {
+  border-color: #777;
+  color: #fff;
+}
+
+.filter-btn.active {
+  background-color: #f6851b;
+  border-color: #f6851b;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* --- Inventory Item Card & Equipped Green Border --- */
+.items-panel .inv-item {
+  position: relative;
+  border: 2px solid #444;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 118px;
+}
+
+.items-panel .inv-item img {
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin: 4px 0;
+}
+
+.items-panel .inv-item.equipped-item {
+  border-color: #00e676 !important;
+  box-shadow: 0 0 12px rgba(0, 230, 118, 0.35), inset 0 0 8px rgba(0, 230, 118, 0.15);
+}
+
+.equipped-badge {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background-color: #00c853;
+  color: #071b0e;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+
+.inv-item-footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.rarity-label.Common { color: #cfd8dc; }
+.rarity-label.Rare { color: #64b5f6; }
+.rarity-label.Legendary { color: #ffd54f; font-weight: bold; }
+
+.run-loot-card.Common {
+  background: linear-gradient(160deg, #2e3238 0%, #1d2024 100%);
+  border-color: #6c757d;
+}
+
+.run-loot-card.Rare {
+  background: linear-gradient(160deg, #172d4a 0%, #0e1b2e 100%);
+  border-color: #2196f3;
+}
+
+.run-loot-card.Legendary {
+  background: linear-gradient(160deg, #423107 0%, #241a03 100%);
+  border-color: #ffc107;
+}
+
+/* --- Total Power Badge --- */
+.total-power-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #263238 0%, #1b2838 100%);
+  border: 1px solid #4fc3f7;
+  color: #e1f5fe;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.total-power-badge strong {
+  color: #81c784;
+  font-size: 15px;
+}
+
+/* --- Power Corner on Inventory Card & Equip Slots --- */
+.card-pwr-corner {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.72);
+  color: #81c784;
+  border: 1px solid rgba(129, 199, 132, 0.4);
+  font-size: 10px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.equip-slot {
+  position: relative;
+}
+
+.slot-pwr-tag {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #81c784;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+/* --- Lobby Mini Equip Slots --- */
+.mini-equip-preview {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.mini-slot {
+  position: relative;
+  width: 50px;
+  height: 54px;
+  background-color: #222;
+  border: 1px solid #555;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #888;
+  padding: 3px;
+}
+
+.mini-slot img {
+  max-width: 30px;
+  max-height: 30px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.mini-pwr-text {
+  margin-top: 2px;
+  font-size: 9px;
+  font-weight: bold;
+  color: #81c784;
+}
+
+.equipped-slot-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.equipped-slot-content img {
+  max-width: 72%;
+  max-height: 65%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.slot-pwr-label {
+  margin-top: 3px;
+  font-size: 9px;
+  font-weight: bold;
+  color: #81c784;
+  line-height: 1;
+}
+
+.scrap-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #37474f 0%, #263238 100%);
+  border: 1px solid #b0bec5;
+  color: #eceff1;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.scrap-badge strong {
+  color: #ffd54f;
+  font-size: 15px;
+}
+
+.enhance-pill {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  background-color: rgba(255, 193, 7, 0.22);
+  border: 1px solid #ffc107;
+  color: #ffe082;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 0 5px;
+  border-radius: 4px;
+}
+
+.items-panel .inv-item.selected-item {
+  outline: 2px solid #4fc3f7;
+}
+
+.craft-panel {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background-color: #16181d;
+  border: 1px solid #383e4a;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.craft-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.enhance-tag {
+  color: #ffd54f;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.starter-lock-note {
+  margin: 8px 0 0;
+  color: #9e9e9e;
+  font-size: 13px;
+}
+
+.craft-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: #cfd8dc;
+  margin-bottom: 12px;
+}
+
+.craft-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.craft-log {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #81c784;
+}
+
+.potion-pouch-bar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.potion-slot-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  font-size: 12px;
+}
+
+.battle-potion-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.battle-potion-btn {
+  background-color: #1f2a30;
+  border: 1px solid #4fc3f7;
+  color: #e1f5fe;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.battle-potion-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

@@ -1,0 +1,9 @@
+node_modules/
+dungeon-frontend/node_modules/
+dungeon-backend/node_modules/
+dungeon-frontend/dist/
+.env
+.env.*
+dungeon-backend/.env
+dungeon-backend/.env.*
+.DS_Store
